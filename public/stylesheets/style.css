@@ -1,0 +1,12 @@
+section {
+	padding: 10px;
+	text-align: center;
+}
+
+td {
+	vertical-align: middle !important;
+}
+
+.nowrap {
+	white-space: nowrap;
+}

@@ -1,0 +1,23 @@
+{
+  "name": "thinkmobiles",
+  "version": "1.0.0",
+  "main": "app.js",
+  "authors": [
+    "jacobator"
+  ],
+  "license": "ISC",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/libs"
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.7",
+    "angular-xeditable": "~0.1.9",
+    "angular-resource": "~1.4.7",
+    "bootstrap-css-only": "~3.3.5"
+  }
+}

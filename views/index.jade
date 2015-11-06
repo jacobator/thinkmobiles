@@ -1,0 +1,114 @@
+doctype html
+html
+	head
+		title thinkmobiles CRUD
+		link(rel='stylesheet', href='libs/bootstrap-css-only/css/bootstrap.min.css')
+		link(rel='stylesheet', href='libs/angular-xeditable/dist/css/xeditable.css')
+		link(rel='stylesheet', href='/stylesheets/style.css')
+	body(ng-app='thinkmobiles')
+		section(ng-controller='PeopleController as pplCtrl')
+			h2 people
+			table.table.table-bordered.table-hover.table-condensed
+					tr
+						td(colspan='2')
+							b Name
+						td(rowspan='2')
+							b DOB
+						td(rowspan='2')
+							b Edit
+						tr
+							td
+								b First
+							td
+								b Last
+					tr(ng-repeat='person in pplCtrl.people')
+						td
+							span(editable-text='person.name.first', e-name='first', e-form='rowform', onbeforesave='pplCtrl.checkField($data)', e-required)
+								| {{ person.name.first || 'empty' }}
+						td
+							span(editable-text='person.name.last', e-name='last', e-form='rowform', onbeforesave='pplCtrl.checkField($data)', e-required)
+								| {{ person.name.last || 'empty' }}
+						td
+							span(editable-date='person.dateOfBirth', e-name='dateOfBirth', e-form='rowform', onbeforesave='pplCtrl.checkField($data)', e-required)
+								| {{ (person.dateOfBirth | date: 'dd/MM/yyyy') || 'empty' }}
+						td.nowrap
+							form.form-buttons.form-inline(editable-form, name='rowform', onaftersave='pplCtrl.editPerson($data, person._id)', ng-show='rowform.$visible', shown='false')
+								button.btn.btn-sm.btn-primary(type='submit', ng-disabled='rowform.$waiting')
+									| save
+								button.btn.btn-sm.btn-default(type='button', ng-disabled='rowform.$waiting', ng-click='rowform.$cancel()')
+									| cancel
+							.buttons(ng-show='!rowform.$visible')
+								button.btn.btn-sm.btn-primary(ng-click='rowform.$show()') edit
+								button.btn.btn-sm.btn-danger(ng-click='pplCtrl.removePerson(person._id)') del
+					tr(ng-if='!pplCtrl.people.length')
+						td(colspan='4') No people yet
+				button.btn.btn-sm.btn-default(ng-click='pplCtrl.addPerson()') Add person
+		hr
+		section(ng-controller='CustomersController as cmrsCtrl')
+			h2 customers
+			table.table.table-bordered.table-hover.table-condensed
+					tr
+						td(colspan='2')
+							b Name
+						td(rowspan='2')
+							b DOB
+						td(rowspan='2')
+							b Company
+						td(colspan='2')
+							b Phone
+						td(rowspan='2')
+							b Skype
+						td(rowspan='2')
+							b Edit
+					tr
+						td
+							b First
+						td
+							b Last
+						td
+							b Mobile
+						td
+							b Work
+					tr(ng-repeat='customer in cmrsCtrl.customers')
+						td
+							span(editable-text='customer.name.first', e-name='first', e-form='rowform', onbeforesave='cmrsCtrl.checkField($data)', e-required)
+								| {{ customer.name.first || 'empty' }}
+						td
+							span(editable-text='customer.name.last', e-name='last', e-form='rowform', onbeforesave='cmrsCtrl.checkField($data)', e-required)
+								| {{ customer.name.last || 'empty' }}
+						td
+							span(editable-date='customer.dateOfBirth', e-name='dateOfBirth', e-form='rowform', onbeforesave='cmrsCtrl.checkField($data)', e-required)
+								| {{ (customer.dateOfBirth | date: 'dd/MM/yyyy') || 'empty' }}
+						td
+							span(editable-text='customer.companyName', e-name='companyName', e-form='rowform', onbeforesave='cmrsCtrl.checkField($data)', e-required)
+								| {{ customer.companyName || 'empty' }}
+						td
+							span(editable-text='customer.phone.mobile', e-name='mobile', e-form='rowform', onbeforesave='cmrsCtrl.checkPhone($data)', e-required)
+								| {{ (customer.phone.mobile | phone) || 'empty' }}
+						td
+							span(editable-text='customer.phone.work', e-name='work', e-form='rowform', onbeforesave='cmrsCtrl.checkPhone($data)', e-required)
+								| {{ (customer.phone.work | phone) || 'empty' }}
+						td
+							span(editable-text='customer.skype', e-name='skype', e-form='rowform', onbeforesave='cmrsCtrl.checkField($data)', e-required)
+								| {{ customer.skype || 'empty' }}
+						td.nowrap
+							form.form-buttons.form-inline(editable-form, name='rowform', onaftersave='cmrsCtrl.editCustomer($data, customer._id)', ng-show='rowform.$visible', shown='false')
+								button.btn.btn-sm.btn-primary(type='submit', ng-disabled='rowform.$waiting')
+									| save
+								button.btn.btn-sm.btn-default(type='button', ng-disabled='rowform.$waiting', ng-click='rowform.$cancel()')
+									| cancel
+							.buttons(ng-show='!rowform.$visible')
+								button.btn.btn-sm.btn-primary(ng-click='rowform.$show()') edit
+								button.btn.btn-sm.btn-danger(ng-click='cmrsCtrl.removeCustomer(customer._id)') del
+					tr(ng-if='!cmrsCtrl.customers.length')
+						td(colspan='8') No customers yet
+				button.btn.btn-sm.btn-default(ng-click='cmrsCtrl.addCustomer()') Add customer
+		script(src='libs/angular/angular.min.js')
+		script(src='libs/angular-resource/angular-resource.min.js')
+		script(src='libs/angular-xeditable/dist/js/xeditable.min.js')
+		script(src='javascripts/app.js')
+		script(src='javascripts/shared/phone.filter.js')
+		script(src='javascripts/people/people.controller.js')
+		script(src='javascripts/people/people.service.js')
+		script(src='javascripts/customers/customers.controller.js')
+		script(src='javascripts/customers/customers.service.js')
